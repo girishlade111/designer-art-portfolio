@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 /* ─── Animation Variants ─── */
 const fadeUp = {
@@ -33,32 +34,32 @@ const projects = [
   {
     name: "REFLECTIONS",
     category: "3D DESIGN",
-    gradient: "linear-gradient(135deg, #1e293b 0%, #0ea5e9 50%, #f0abfc 100%)",
+    image: "/images/reflections.png",
   },
   {
     name: "RELATION",
     category: "ART DIRECTION",
-    gradient: "linear-gradient(135deg, #312e81 0%, #c084fc 50%, #fb923c 100%)",
+    image: "/images/relation.png",
   },
   {
     name: "GREY SPACE",
     category: "3D DESIGN",
-    gradient: "linear-gradient(135deg, #1c1917 0%, #78716c 50%, #d6d3d1 100%)",
+    image: "/images/grey-space.png",
   },
   {
     name: "BUY HEJ",
     category: "3D DESIGN",
-    gradient: "linear-gradient(135deg, #064e3b 0%, #34d399 50%, #fbbf24 100%)",
+    image: "/images/buy-hej.png",
   },
   {
     name: "REACT",
     category: "3D DESIGN",
-    gradient: "conic-gradient(from 180deg, #1e293b, #6366f1, #22d3ee, #1e293b)",
+    image: "/images/react.png",
   },
   {
     name: "BUBBLE INTRODUCTION",
     category: "BRAND IDENTITY",
-    gradient: "linear-gradient(135deg, #831843 0%, #ec4899 50%, #f9a8d4 100%)",
+    image: "/images/bubble-introduction.png",
   },
 ];
 
@@ -106,7 +107,7 @@ export default function Home() {
             DIRECTOR
           </motion.h1>
 
-          {/* Bio + link */}
+          {/* Bio + portrait + link */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -115,8 +116,17 @@ export default function Home() {
               delay: 0.3,
               ease: [0.17, 0.55, 0.55, 1],
             }}
-            className="lg:max-w-sm lg:text-right flex flex-col lg:items-end"
+            className="lg:max-w-sm lg:text-right flex flex-col lg:items-end gap-6"
           >
+            <div className="relative w-32 h-32 lg:w-40 lg:h-40 rounded-full overflow-hidden shrink-0 lg:ml-auto">
+              <Image
+                src="/images/hero-portrait.png"
+                alt="Jordan — Designer & Art Director"
+                fill
+                className="object-cover"
+                sizes="160px"
+              />
+            </div>
             <p
               className="text-[#a1a1a1] text-[1.125rem] leading-relaxed max-w-[45ch] font-normal"
             >
@@ -129,7 +139,7 @@ export default function Home() {
               href="#"
               whileHover={{ opacity: 0.7 }}
               transition={{ duration: 0.25 }}
-              className="mt-6 text-white text-sm uppercase tracking-[0.05em] font-medium hover:text-[#cccccc] transition-colors inline-block"
+              className="text-white text-sm uppercase tracking-[0.05em] font-medium hover:text-[#cccccc] transition-colors inline-block"
             >
               MORE ABOUT ME →
             </motion.a>
@@ -163,14 +173,21 @@ export default function Home() {
         >
           {projects.map((project) => (
             <motion.div key={project.name} variants={staggerChild} className="flex flex-col group">
-              {/* Image placeholder */}
+              {/* Project image */}
               <div className="rounded-xl overflow-hidden relative aspect-[4/3]">
                 <motion.div
                   whileHover={{ scale: 1.04 }}
                   transition={{ duration: 0.4, ease: "easeOut" }}
                   className="absolute inset-0 w-full h-full"
-                  style={{ background: project.gradient }}
-                />
+                >
+                  <Image
+                    src={project.image}
+                    alt={project.name}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                  />
+                </motion.div>
               </div>
 
               {/* Caption */}
